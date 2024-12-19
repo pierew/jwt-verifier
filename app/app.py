@@ -9,6 +9,7 @@ import os
 
 serverPort = os.environ.get('SERVER_PORT', 8080)
 
+# Functionality not yet verified        
 def verify_with_jwts(token: str,jwks_endpoint: str):
     header = jwt.get_unverified_header(token)
     alg = header["alg"]
@@ -41,12 +42,12 @@ class MyServer(BaseHTTPRequestHandler):
         
         response = None
         
-        if 'access_token' in query.keys() and 'jwts_endpoint' in query.keys():
-            response = verify_with_jwts(token=query['access_token'][0],jwks_endpoint=query['jwts_endpoint'][0])
-
-        elif 'access_token' in query.keys() and 'public_key' in query.keys():
+        if 'access_token' in query.keys() and 'public_key' in query.keys():
             response = verify_without_jwks(token=query['access_token'][0],public_key=query['public_key'][0])
-            
+
+# Functionality not yet verified        
+        #elif 'access_token' in query.keys() and 'jwts_endpoint' in query.keys():
+        #    response = verify_with_jwts(token=query['access_token'][0],jwks_endpoint=query['jwts_endpoint'][0])
         
         self.wfile.write(bytes(json.dumps(response),"utf-8"))
 
