@@ -40,7 +40,7 @@ class MyServer(BaseHTTPRequestHandler):
         
         query = urlparse.parse_qs(urlparse.urlparse(self.path).query)
         
-        response = None
+        response = {'verified': False}
         
         if 'access_token' in query.keys() and 'public_key' in query.keys():
             response = verify_without_jwks(token=query['access_token'][0],public_key=query['public_key'][0])
