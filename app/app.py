@@ -28,7 +28,7 @@ def verify_without_jwks(token: str, public_key: str):
     
     try:
         jwt.decode(token,key,algorithms=[alg],options={"verify_aud": False, "verify_signature": True})
-        return {'verified': False}
+        return {'verified': True}
     except Exception as e:
         return {'verified': False, 'exception': str(e)}
 
